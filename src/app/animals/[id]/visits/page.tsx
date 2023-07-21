@@ -1,10 +1,10 @@
 'use client'
-import AddAnimalForm from '@/components/Animal/AddAnimalForm'
-import DeleteAnimalForm from '@/components/Animal/DeleteAnimalForm'
-import EditAnimalForm from '@/components/Animal/EditAnimalForm'
 import AppTable from '@/components/Table'
-import { Animal } from '@/models/Animals'
-import { getAnimals } from '@/services/animal'
+import AddVisitForm from '@/components/Visit/AddVisitForm'
+import DeleteVisitForm from '@/components/Visit/DeleteVisitForm'
+import EditVisitForm from '@/components/Visit/EditVisitForm'
+import { Visit } from '@/models/Visits'
+import { getvisits } from '@/services/visit'
 import AddIcon from '@mui/icons-material/Add'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
@@ -16,18 +16,18 @@ import Head from 'next/head'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-export default function AnimalsPage() {
+export default function VisitsPage() {
 
     const router = useRouter()
     const searchParams = useSearchParams()
     const step = searchParams.get('step')
-    const [animalsList, setAnimalsList] = useState<Animal[]>([])
+    const [visitsList, setVisitsList] = useState<Visit[]>([])
 
     const getAnimalsList = async () => {
         try {
-            setAnimalsList(await getAnimals())
+            setVisitsList(await getvisits())
         } catch {
-            setAnimalsList([])
+            setVisitsList([])
         }
     }
 
@@ -36,11 +36,7 @@ export default function AnimalsPage() {
     }, [])
 
     const handleClick = (stepName: string, id: number) => {
-        router.push(`/animals?step=${stepName}&id=${id}`)
-    }
-
-    const handleClickVisit = (stepName: string, id: number) => {
-        router.push(`/animals/${id}/visits?idAnimal=${id}`)
+        router.push(`/animals/${id}/visits?step=${stepName}&id=${id}`)
     }
 
 
@@ -54,7 +50,7 @@ export default function AnimalsPage() {
                     <Grid item xs={12}>
                         <Stack direction='row' spacing={2}>
                             <Typography component="h1" fontWeight={600} variant="h4" textAlign='left'>
-                                Animales
+                                Visitas
                             </Typography>
                             <IconButton
                                 aria-label="Agregar"
@@ -69,20 +65,20 @@ export default function AnimalsPage() {
                         <Grid item xs={12}>
                             <Container maxWidth="xs">
                                 {step == 'add' &&
-                                    <AddAnimalForm />
+                                    <AddVisitForm />
                                 }
                                 {step == 'edit' &&
-                                    <EditAnimalForm />
+                                    <EditVisitForm />
                                 }
                                 {step == 'delete' &&
-                                    <DeleteAnimalForm />
+                                    <DeleteVisitForm />
                                 }
                             </Container>
                         </Grid>
                         :
                         <Grid item xs={12}>
-                            {animalsList.length != 0 &&
-                                <AppTable titleCells={['id', 'name', 'weight', 'type', '']} dataCells={animalsList} handleClickButton={handleClick} handleClickVisit={handleClickVisit} />
+                            {visitsList.length != 0 &&
+                                <AppTable titleCells={['animalId', 'id', 'date', 'hour', 'reason', '']} dataCells={visitsList} handleClickButton={handleClick} />
                             }
                         </Grid>
                     }
@@ -93,3 +89,4 @@ export default function AnimalsPage() {
     )
 
 }
+

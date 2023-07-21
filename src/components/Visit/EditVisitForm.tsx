@@ -29,6 +29,9 @@ export default function EditVisitForm() {
             setDate(visit.date)
             setHour(visit.hour)
             setReason(visit.reason)
+
+            const animalInfo = await getAnimal(Number(id))
+            setAnimal(animalInfo.name)
         } catch {
             console.log('Error al asignar información')
         }
@@ -42,16 +45,16 @@ export default function EditVisitForm() {
         event.preventDefault()
 
         try {
-            // const data: Visit = {
-            //     animalId: Number(id),
-            //     date: date,
-            //     hour: hour,
-            //     reason: reason
-            // }
+            const data: Visit = {
+                animalId: Number(id),
+                date: date,
+                hour: hour,
+                reason: reason
+            }
 
-            // updatevisit(data)
-            // router.push('/animals')
-            // console.log('Se edito animal c:')
+            updatevisit(data)
+            router.push(`/animals/${id}/visits`)
+            console.log('Se edito visita c:')
         } catch {
             console.log('Hubo un error :c')
         }
@@ -70,11 +73,13 @@ export default function EditVisitForm() {
                 <TextField
                     label="Día"
                     variant="outlined"
+                    value={date}
                     onChange={(e) => setDate(e.currentTarget.value)}
                 />
                 <TextField
                     label="Hora"
                     variant="outlined"
+                    value={hour}
                     onChange={(e) => setHour(e.currentTarget.value)}
                 />
                 <AppSelect
@@ -84,7 +89,7 @@ export default function EditVisitForm() {
                     label={'Tipo de visita'}
                 />
                 <Stack direction='row' spacing={3}>
-                    <Button variant="text" type='button' fullWidth onClick={() => router.push('/animals')}>Cancel</Button>
+                    <Button variant="text" type='button' fullWidth onClick={() => router.push(`/animals/${id}/visits`)}>Cancel</Button>
                     <Button variant="text" type='submit' fullWidth>Editar</Button>
                 </Stack>
 

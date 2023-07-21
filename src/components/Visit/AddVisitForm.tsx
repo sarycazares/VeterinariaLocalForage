@@ -46,7 +46,7 @@ export default function AddVisitForm() {
             }
 
             createvisit(data)
-            router.push('/animals')
+            router.push(`/animals/${id}/visits`)
             console.log('Se agregó visita c:')
         } catch {
             console.log('Hubo un error :c')
@@ -80,7 +80,7 @@ export default function AddVisitForm() {
                     label={'Tipo de visita'}
                 />
                 <Stack direction='row' spacing={3}>
-                    <Button variant="text" type='button' fullWidth onClick={() => router.push('/animals')}>Cancel</Button>
+                    <Button variant="text" type='button' fullWidth onClick={() => router.push(`/animals/${id}/visits`)}>Cancel</Button>
                     <Button variant="text" type='submit' fullWidth>Agregar</Button>
                 </Stack>
 

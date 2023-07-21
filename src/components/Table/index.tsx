@@ -8,15 +8,17 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
+import AddAlarmIcon from '@mui/icons-material/AddAlarm'
 
 export interface AppTableProps {
     titleCells: string[]
     dataCells: any[]
     handleClickButton: Function
+    handleClickVisit?: Function
 }
 
 export default function AppTable(props: AppTableProps) {
-    const { titleCells, dataCells, handleClickButton } = props
+    const { titleCells, dataCells, handleClickButton, handleClickVisit = () => { } } = props
 
     const visibleColumns = titleCells.slice(0, titleCells.length - 1)
 
@@ -53,6 +55,15 @@ export default function AppTable(props: AppTableProps) {
                                 >
                                     <DeleteIcon />
                                 </IconButton>
+                                <IconButton
+                                    aria-label="Eliminar"
+                                    color='inherit'
+                                    onClick={() => handleClickVisit('handleClickVisit', row['id'])}
+                                >
+                                    <AddAlarmIcon />
+                                </IconButton>
+
+
                             </TableCell>
                         </TableRow>
                     ))}

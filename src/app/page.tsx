@@ -30,7 +30,7 @@ export default function Home() {
                             <Button variant="contained" onClick={() => router.push('/animals')}>
                                 Animales
                             </Button>
-                            <Button variant="contained" onClick={() => router.push('/animals')}>
+                            <Button variant="contained" onClick={() => router.push('/visits')}>
                                 Visitas
                             </Button>
                         </Stack>
